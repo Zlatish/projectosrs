@@ -17,6 +17,9 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 - Keybind settings reset after closing the window instead of saving. Keybinds now persist, clear duplicate keys, and "Restore default keybinds" works.
 - Checked every settings menu item; the close button and keybinds above were the only failures found
 
+### Setup
+- Added `CLAUDE.md` with the Claude Code workflow rules: every change goes through a branch and a pull request, and finished work is logged in the changelog and removed from the roadmap
+
 ## 2026-10-04
 
 ### Changed
