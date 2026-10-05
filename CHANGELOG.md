@@ -1,0 +1,32 @@
+# Changelog
+
+All notable changes to this server, newest first. Planned work lives in [ROADMAP.md](ROADMAP.md).
+
+Each date uses these categories where relevant: **Added**, **Changed**, **Fixed**, **Removed**, and **Setup** for environment and tooling work.
+
+---
+
+## 2026-10-05
+
+### Added
+- `::setrank username rank` command for giving accounts player, moderator, admin or owner rank (owner only)
+
+### Fixed
+- The All Settings window close (X) button did nothing
+- Keybind settings reset after closing the window instead of saving. Keybinds now persist, clear duplicate keys, and "Restore default keybinds" works.
+- Checked every settings menu item; the close button and keybinds above were the only failures found
+
+## 2026-10-04
+
+### Changed
+- Changed the login message using a new SQL migration
+
+### Setup
+Dates for items without a commit are approximate (on or before this date).
+- Installed IntelliJ, git and Temurin JDK 21
+- Cloned RSMod (revision 233) and got the Gradle sync working
+- Server runs from IntelliJ on port 43594
+- RSProx installed and configured with a custom `proxy-targets.yaml` target
+- Logged in with both the Native and RuneLite clients
+- Forked the repository on GitHub and pushed commits
+- Installed Claude Code
