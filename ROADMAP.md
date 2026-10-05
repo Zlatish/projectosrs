@@ -37,8 +37,7 @@ How to use this file: when an item is finished, remove it from here and add it t
 
 ## Ideas
 
-- Create some admin commands & create a list overlay that displays them in game as a reminder:
-  - ::commands - opens an overlay showing a list of admin commands that can be used
+- Create some admin commands (they will appear in `::commands` automatically):
   - ::setlevel skill playername lvl (Sets a skill to the allocated level)
   - ::resetlevels (resets all skill levels to 1)
   - A teleport to player command (Retrieves player coordinates and teleports you to them.)
