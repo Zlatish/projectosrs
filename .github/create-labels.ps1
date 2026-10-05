@@ -29,5 +29,8 @@ $labels = @(
 )
 
 foreach ($l in $labels) {
-  gh label create $l.n --color $l.c --description $l.d --force
+  # Windows PowerShell drops empty arguments, so only pass --description when there is one
+  $ghArgs = @($l.n, "--color", $l.c, "--force")
+  if ($l.d) { $ghArgs += @("--description", $l.d) }
+  gh label create @ghArgs
 }

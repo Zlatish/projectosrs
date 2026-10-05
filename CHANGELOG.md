@@ -19,6 +19,7 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 
 ### Setup
 - Added `CLAUDE.md` with the Claude Code workflow rules: every change goes through a branch and a pull request, and finished work is logged in the changelog and removed from the roadmap
+- Added GitHub issue templates for bug reports and change requests, plus a `.github/create-labels.ps1` script that creates the bug, change, severity, priority and area labels
 
 ## 2026-10-04
 
