@@ -1,8 +1,9 @@
 package org.rsmod.content.other.commands
 
 import jakarta.inject.Inject
-import java.time.Instant
-import java.time.temporal.ChronoUnit
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.ConcurrentLinkedQueue
 import org.rsmod.api.config.refs.modlevels
 import org.rsmod.api.game.process.GameLifecycle
@@ -70,7 +71,7 @@ constructor(private val playerList: PlayerList, private val github: GitHubIssueC
                 ### Reported in-game
                 - **Reporter:** ${player.username}
                 - **Location:** x=${coords.x}, z=${coords.z}, level=${coords.level} (`::tele ${coords.level},${coords.mx},${coords.mz},${coords.lx},${coords.lz}`)
-                - **Time:** ${Instant.now().truncatedTo(ChronoUnit.SECONDS)}
+                - **Time:** ${ZonedDateTime.now(ZoneOffset.UTC).format(GMT_FORMAT)}
 
                 _Sent with the in-game `::bug` command. Add steps to reproduce, severity and area when triaging._
                 """
@@ -103,6 +104,7 @@ constructor(private val playerList: PlayerList, private val github: GitHubIssueC
     private companion object {
         private const val REPORT_COOLDOWN_MILLIS = 10_000L
         private const val TITLE_MAX_LENGTH = 70
+        private val GMT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss 'GMT'")
         private val ISSUE_LABELS = listOf("bug", "source: in-game")
     }
 }

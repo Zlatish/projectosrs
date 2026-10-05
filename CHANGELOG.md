@@ -11,7 +11,7 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 ### Added
 - `::setrank username rank` command for giving accounts player, moderator, admin or owner rank (owner only)
 - `::commands` command that opens an in-game menu listing every command with its description (admin only)
-- `::bug description` command that files a GitHub issue with the reporter, location and time filled in (moderator and above)
+- `::bug description` command that files a GitHub issue with the reporter, location and time (GMT) filled in (moderator and above)
 
 ### Fixed
 - The All Settings window close (X) button did nothing
