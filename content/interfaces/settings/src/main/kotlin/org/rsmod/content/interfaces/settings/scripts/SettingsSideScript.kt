@@ -59,6 +59,10 @@ constructor(private val eventBus: EventBus, private val protectedAccess: Protect
     private fun ProtectedAccess.openAllSettings() {
         // TODO(content): varp `settings_tracking` is spam synced here for some reason.
         ifOpenOverlay(interfaces.settings)
+        // Each setting row and dropdown option is a dynamic child (comsub), so clicks on them
+        // are only accepted once the server has enabled their events.
+        ifSetEvents(setting_components.settings_clickzone, 0..1000, IfEvent.Op1)
+        ifSetEvents(setting_components.settings_dropdown_buttons, 0..100, IfEvent.Op1)
     }
 }
 
