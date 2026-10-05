@@ -1,0 +1,81 @@
+name: Bug report
+description: Something on the server is broken or behaves wrongly
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this. The more exactly you describe it, the faster it gets fixed.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happens
+      description: What did you see? What did you expect to see instead?
+      placeholder: "Burying bones removes them but gives no Prayer XP. Expected: bones removed and XP awarded."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Step by step, so someone else can trigger it.
+      placeholder: |
+        1. Log in
+        2. Spawn bones
+        3. Click Bury
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (your best guess)
+      description: How bad is the damage? The maintainer may change this when triaging.
+      options:
+        - Critical - server crashes, data loss, or unplayable
+        - High - a feature is broken
+        - Medium - works, but wrong
+        - Low - cosmetic or minor
+      default: 2
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Combat
+        - Skills
+        - Prayer
+        - Items & inventory
+        - Interfaces
+        - Settings
+        - Movement
+        - Login & accounts
+        - Server & database
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: client
+    attributes:
+      label: Client used
+      options:
+        - RuneLite (through RSProx)
+        - Native (through RSProx)
+        - Both
+        - Not client related
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Server revision
+      description: Shown in the server log on startup.
+      placeholder: "233"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Server console output
+      description: Paste any ERROR or Exception lines from the IntelliJ console. Do not paste keys, tokens or passwords.
+      render: text

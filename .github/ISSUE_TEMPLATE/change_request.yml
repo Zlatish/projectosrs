@@ -1,0 +1,35 @@
+name: Change or feature
+description: Something to add or change that is not a bug
+title: "[Change] "
+labels: ["change"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What should change
+      description: Describe the result you want, in plain terms.
+      placeholder: "Running should no longer drain run energy."
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes or ideas for how
+      description: Files, commands or code you think are involved, if you know.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Combat
+        - Skills
+        - Prayer
+        - Items & inventory
+        - Interfaces
+        - Settings
+        - Movement
+        - Login & accounts
+        - Server & database
+        - Other
+    validations:
+      required: true
