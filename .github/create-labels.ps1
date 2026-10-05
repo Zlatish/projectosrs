@@ -6,6 +6,7 @@
 $labels = @(
   @{ n = "bug";                 c = "d73a4a"; d = "Something is broken" },
   @{ n = "change";              c = "0e8a16"; d = "Add or change behaviour" },
+  @{ n = "source: in-game";     c = "5319e7"; d = "Sent with the in-game ::bug command" },
 
   @{ n = "severity: critical";  c = "b60205"; d = "Crashes, data loss, or unplayable" },
   @{ n = "severity: high";      c = "d93f0b"; d = "A feature is broken" },
