@@ -9,6 +9,7 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 ## 2026-10-08
 
 ### Changed
+- Added beginner-friendly comments to the code behind `::setrank`, `::bug` and `::commands`, explaining what each part does and the Kotlin features it uses (no change to how the commands work)
 - Rewrote `README.md` for this server: tech stack, programs to install and where to get them, step-by-step setup for collaborators, and how the dev and main worlds differ, including how to grant admin on the main world
 
 ### Removed
