@@ -6,6 +6,17 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 
 ---
 
+## 2026-10-08
+
+### Changed
+- Rewrote `README.md` for this server: tech stack, programs to install and where to get them, and step-by-step setup for collaborators
+
+### Removed
+- Old RS Mod setup screenshots in `docs/images`, which the new README no longer uses
+
+### Setup
+- The Integration Tests workflow no longer runs every night; start it by hand from the GitHub Actions tab
+
 ## 2026-10-05
 
 ### Added

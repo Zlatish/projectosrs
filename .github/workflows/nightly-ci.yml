@@ -1,9 +1,8 @@
 name: Integration Tests
 
+# Manual only: run it from the Actions tab ("Integration Tests" -> "Run workflow"),
+# for example before merging a large change.
 on:
-  schedule:
-    # Schedule the workflow to run every day at 2:00 AM UTC
-    - cron: '0 2 * * *'
   workflow_dispatch:
 
 jobs:
