@@ -10,6 +10,7 @@ How to use this file: when an item is finished, remove it from here and add it t
 
 ### High (do first)
 - [ ] Fix burying bones (Bugs #1)
+- [ ] Default attack options to "Left-click where available" for new characters (Bugs #2)
 
 ### Medium
 - [ ] Remove run energy depletion (Features #1)
@@ -24,6 +25,11 @@ How to use this file: when an item is finished, remove it from here and add it t
 1. **Fix burying bones**
    - Seen: *(add what happens when you try to bury bones, for example no Bury option, nothing happens, or no XP)*
    - Expected: the Bury option appears on bones, the bones are removed from the inventory, and Prayer XP is awarded.
+
+2. **Default attack options to "Left-click where available" for new characters**
+   - Seen: new characters start with **NPC attack options** and **Player attack options** (Settings → Controls) set to "Depends on combat levels". Higher-level NPCs then have no left-click Attack, which makes it look like NPCs can't be attacked.
+   - Expected: both settings start as "Left-click where available". Players can still change them, and the change is saved.
+   - Suggested approach: the settings are stored in the varps `option_attackpriority` (players) and `option_attackpriority_npc` (NPCs), handled in `ControlSettingsScript.kt`. Set both when a new character is first created, rather than on every login, so a player's own choice isn't overwritten.
 
 ---
 
