@@ -30,7 +30,6 @@ Install these in order. All of them are free.
 | **IntelliJ IDEA** | Editing and running the server. The free Community Edition is enough. | [jetbrains.com/idea/download][intellij] |
 | **RSProx** | The client you play through | [github.com/blurite/rsprox][rsprox] (see its README for the installer) |
 | **GitHub account** | Getting access to the repo and opening pull requests | [github.com/signup][github-signup] |
-| **DB Browser for SQLite** *(optional)* | Giving yourself owner rank on your local server (see step 5) | [sqlitebrowser.org][sqlitebrowser] |
 
 On Windows you can install Java and Git from a terminal instead:
 
@@ -78,23 +77,15 @@ From a terminal, run `gradlew install` once and then `gradlew run` each time.
 2. Add a proxy target for your local server in RSProx's `proxy-targets.yaml`. Each server generates its own RSA key on first run. The public modulus RSProx needs is in **`.data/client.key`** in your copy of the project, so use the value from your own file, not someone else's.
 3. In RSProx, pick that target, launch the Native or RuneLite client, and log in.
 
-There's no registration. The first time you log in with a new username and password, the account is created with those details.
+There's no registration. Your local server runs the `dev` world (set in `.data/server.toml`), where:
 
-### 5. Give yourself owner rank (optional)
+- logging in with a new username creates the account automatically
+- any password is accepted
+- every new account starts with **owner** rank, so all commands work straight away
 
-New accounts start with the **player** rank, so most commands are locked. To unlock them on your own server:
+Type `::commands` in-game to see every command. As owner you can change another account's rank with `::setrank username rank`, using `player`, `moderator`, `admin` or `owner`.
 
-1. Log in once so your account exists, then log out and **stop the server**.
-2. Open `.data/saves/game.db` in DB Browser for SQLite.
-3. Run this in the **Execute SQL** tab, replacing `yourname` with your login name, then click **Write Changes**:
-   ```sql
-   UPDATE accounts SET modlevel = 'owner' WHERE login_username = 'yourname';
-   ```
-4. Start the server and log in again. As owner you can give other accounts a rank in-game with `::setrank username rank`, using `player`, `moderator`, `admin` or `owner`.
-
-Type `::commands` in-game to see every command available to your rank.
-
-### 6. Set up in-game bug reports (optional)
+### 5. Set up in-game bug reports (optional)
 
 The `::bug description` command (moderator rank and above) files a GitHub issue straight from the game. The first time it runs, it creates `.data/github.toml`. Add a [fine-grained personal access token][pat] to that file. Limit the token to this repo and give it only the **Issues: Read and write** permission.
 
@@ -129,5 +120,4 @@ Built on [RS Mod][rsmod], which is released under the ISC license. The original 
 [adoptium]: https://adoptium.net/temurin/releases/?version=21
 [intellij]: https://www.jetbrains.com/idea/download/
 [github-signup]: https://github.com/signup
-[sqlitebrowser]: https://sqlitebrowser.org/dl/
 [pat]: https://github.com/settings/personal-access-tokens/new
