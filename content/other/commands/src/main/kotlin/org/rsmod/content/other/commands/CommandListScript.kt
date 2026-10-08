@@ -2,6 +2,7 @@ package org.rsmod.content.other.commands
 
 import jakarta.inject.Inject
 import org.rsmod.api.config.constants
+import org.rsmod.api.config.refs.modlevels
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccess
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
@@ -12,7 +13,8 @@ import org.rsmod.plugin.scripts.ScriptContext
 
 /**
  * The `::commands` command, which opens an in-game menu listing every registered command with its
- * description. Clicking an entry prints that line to the chat box.
+ * description. Clicking an entry prints that line to the chat box. Only admins and owners can use
+ * it.
  *
  * It reads the server's command list as it is when used, so any new command added with
  * `onCommand(...)` shows up here automatically.
@@ -31,11 +33,14 @@ class CommandListScript @Inject constructor(private val protectedAccess: Protect
     // ::commands itself. `::listCommands` passes the function below as the code to run when
     // someone types it.
     //
-    // Unlike ::setrank, no `{ modLevel = ... }` block is given here, so the server doesn't limit
-    // who can use ::commands by rank.
+    // The `{ modLevel = modlevels.admin }` block limits ::commands to admin rank and above (admin
+    // and owner). The server checks the rank before running the command, so for players and
+    // moderators nothing happens and no menu opens.
     override fun ScriptContext.startup() {
         commands = cheatCommandMap
-        onCommand("commands", "List all available commands", ::listCommands)
+        onCommand("commands", "List all available commands", ::listCommands) {
+            modLevel = modlevels.admin
+        }
     }
 
     // Runs when someone types ::commands. `with(cheat) { ... }` lets us write `player` instead of
