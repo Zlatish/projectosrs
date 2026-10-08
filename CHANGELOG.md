@@ -16,6 +16,7 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 
 ### Setup
 - The Integration Tests workflow no longer runs every night; start it by hand from the GitHub Actions tab
+- Added a code comments rule to `CLAUDE.md`: all new or changed code must have plain-English comments that explain the code and its Kotlin features to a beginner
 
 ## 2026-10-05
 
