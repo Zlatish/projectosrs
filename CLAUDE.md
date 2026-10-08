@@ -20,6 +20,33 @@ Never commit or push directly to `main`. Every change, however small, goes throu
 If I ask for a follow-up change to an open PR, commit it to the same branch rather than starting a new one, and update that PR's existing changelog entry instead of adding a second one.
 If you're unsure whether something should be a new branch or part of an existing one, ask me.
 
+## Code comments (always follow)
+
+I'm learning Kotlin, so every piece of new or changed code must be commented clearly enough for a beginner to follow. This overrides any habit of matching the sparse comment style of the surrounding RS Mod code.
+
+- **Every class and function** gets a short comment above it saying what it does and when it's used, in plain English.
+- **Every section of logic inside a function** gets a comment explaining what that step does and why, e.g. checking the arguments, looking up the account, saving to the database, messaging the player.
+- **Explain Kotlin features** the first time they appear in a file, in a few words: e.g. `?.` and `?:` (null handling), `with(...)`, `by lazy`, lambdas `{ ... }`, extension functions, `when`, `data class`, `sealed class`, coroutines/`suspend`.
+- **Explain RS Mod concepts** when they're used: e.g. what a `PluginScript` is, what `onCommand` registers, what `modLevel` controls, what `db.request` does and why database work runs off the game thread.
+- Use plain language and keep each comment short. Say what the code achieves in game terms where possible ("stops a player changing their own rank"), not just a restatement of the code.
+- Only comment code written or changed in the current task. Don't add comments throughout existing upstream files unless I ask.
+
+Example of the expected level:
+
+```kotlin
+// Registers the ::setrank command. Only accounts with owner rank can use it.
+override fun ScriptContext.startup() {
+    onCommand("setrank", "Set an account's staff rank", ::setRank) {
+        modLevel = modlevels.owner
+    }
+}
+
+// The rank is always the last word, so everything before it is the username.
+// `dropLast(1)` removes the last item from the list; `joinToString(" ")` glues the rest back
+// together with spaces, so names like "big jay" still work.
+val username = args.dropLast(1).joinToString(" ")
+```
+
 ## Changelog and roadmap
 
 CHANGELOG.md and ROADMAP.md already exist in the repo root. Follow their existing format and keep their intro text intact.

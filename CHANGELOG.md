@@ -6,6 +6,18 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 
 ---
 
+## 2026-10-08
+
+### Changed
+- Rewrote `README.md` for this server: tech stack, programs to install and where to get them, step-by-step setup for collaborators, and how the dev and main worlds differ, including how to grant admin on the main world
+
+### Removed
+- Old RS Mod setup screenshots in `docs/images`, which the new README no longer uses
+
+### Setup
+- The Integration Tests workflow no longer runs every night; start it by hand from the GitHub Actions tab
+- Added a code comments rule to `CLAUDE.md`: all new or changed code must have plain-English comments that explain the code and its Kotlin features to a beginner
+
 ## 2026-10-05
 
 ### Added
