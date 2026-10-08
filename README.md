@@ -102,6 +102,8 @@ The server can run one of two worlds (the code calls them realms). You pick one 
 
 Each world keeps its own characters, but an account's **rank belongs to the account**, not the world. An account that became owner on `dev` is still owner on `main`.
 
+To log into `main` with an account first created on `dev`, use **the password you typed the first time you logged in with it**. The `dev` world accepts any password, but it still saves that first one, and `main` checks it. If it's been forgotten, that account can't log into `main`. Use [Option B](#granting-admin-on-the-main-world) to grant rank without logging in.
+
 ### Switching to the main world
 
 This takes two changes: a database update, then the config file. **Do both**, or the server will keep running the `dev` world.
