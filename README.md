@@ -30,6 +30,7 @@ Install these in order. All of them are free.
 | **IntelliJ IDEA** | Editing and running the server. The free Community Edition is enough. | [jetbrains.com/idea/download][intellij] |
 | **RSProx** | The client you play through | [github.com/blurite/rsprox][rsprox] (see its README for the installer) |
 | **GitHub account** | Getting access to the repo and opening pull requests | [github.com/signup][github-signup] |
+| **DB Browser for SQLite** *(only for the main world)* | Editing the database to set up the main world or grant ranks (see [Dev world vs main world](#dev-world-vs-main-world)) | [sqlitebrowser.org][sqlitebrowser] |
 
 On Windows you can install Java and Git from a terminal instead:
 
@@ -77,19 +78,73 @@ From a terminal, run `gradlew install` once and then `gradlew run` each time.
 2. Add a proxy target for your local server in RSProx's `proxy-targets.yaml`. Each server generates its own RSA key on first run. The public modulus RSProx needs is in **`.data/client.key`** in your copy of the project, so use the value from your own file, not someone else's.
 3. In RSProx, pick that target, launch the Native or RuneLite client, and log in.
 
-There's no registration. Your local server runs the `dev` world (set in `.data/server.toml`), where:
+There's no registration page. How login and ranks work depends on which world your server runs. See [Dev world vs main world](#dev-world-vs-main-world) below. A fresh install runs the `dev` world, so logging in with any username and password creates an account with **owner** rank.
 
-- logging in with a new username creates the account automatically
-- any password is accepted
-- every new account starts with **owner** rank, so all commands work straight away
-
-Type `::commands` in-game to see every command. As owner you can change another account's rank with `::setrank username rank`, using `player`, `moderator`, `admin` or `owner`.
+Type `::commands` in-game to see every command your rank can use.
 
 ### 5. Set up in-game bug reports (optional)
 
 The `::bug description` command (moderator rank and above) files a GitHub issue straight from the game. The first time it runs, it creates `.data/github.toml`. Add a [fine-grained personal access token][pat] to that file. Limit the token to this repo and give it only the **Issues: Read and write** permission.
 
 `.data/github.toml` is gitignored. **Never commit it or share your token.**
+
+## Dev world vs main world
+
+The server can run one of two worlds (the code calls them realms). You pick one with the `realm` line in `.data/server.toml`.
+
+| | `dev` (the default) | `main` |
+| --- | --- | --- |
+| Meant for | Building and testing on your own machine | Playing the server as intended |
+| New usernames | Account is created on first login | **Rejected** until registration is switched off (see below) |
+| Passwords | Any password is accepted | Checked against the password saved for the account |
+| Rank for new accounts | **Owner** | **Player** |
+| XP rate | 100x | 1x |
+
+Each world keeps its own characters, but an account's **rank belongs to the account**, not the world. An account that became owner on `dev` is still owner on `main`.
+
+### Switching to the main world
+
+1. **Stop the server.**
+2. Open `.data/server.toml` and change `realm = 'dev'` to `realm = 'main'`.
+3. The `main` world only lets in accounts that already exist. To let players create an account by logging in, run this SQL on `.data/saves/game.db` (see [Editing the database](#editing-the-database)):
+   ```sql
+   UPDATE realms SET require_registration = 0 WHERE name = 'main';
+   ```
+4. Start the server. The first time someone logs in with a new username, their password is saved and they get **player** rank.
+
+### Granting admin on the main world
+
+New accounts on `main` start as **player**. Ask the collaborator to log in once so their account exists, then use either option.
+
+**Option A: in-game (needs an owner account)**
+
+Log in with an owner account, for example one first created on the `dev` world, and run:
+
+```
+::setrank theirname admin
+```
+
+This works whether they're online or not. If they're online their rank changes immediately, and they should log out and back in so their crown shows everywhere.
+
+**Option B: in the database (no owner account needed)**
+
+1. Make sure they're logged out, then **stop the server**. Ranks are saved when a player logs out, so an edit made while the server is running can be overwritten.
+2. Run this SQL on `.data/saves/game.db`, replacing `theirname` with their login name:
+   ```sql
+   UPDATE accounts SET modlevel = 'admin' WHERE LOWER(login_username) = LOWER('theirname');
+   ```
+3. Start the server. They'll be admin the next time they log in.
+
+Valid ranks, lowest to highest, are `player`, `moderator`, `admin` and `owner`. Only an owner can use `::setrank`.
+
+### Editing the database
+
+The database is a single SQLite file at `.data/saves/game.db`. To run SQL on it:
+
+1. **Stop the server** first.
+2. Open the file in [DB Browser for SQLite][sqlitebrowser] (**Open Database**).
+3. Paste the SQL into the **Execute SQL** tab, run it, then click **Write Changes**.
+4. Close DB Browser before starting the server again.
 
 ## Making changes
 
@@ -121,3 +176,4 @@ Built on [RS Mod][rsmod], which is released under the ISC license. The original 
 [intellij]: https://www.jetbrains.com/idea/download/
 [github-signup]: https://github.com/signup
 [pat]: https://github.com/settings/personal-access-tokens/new
+[sqlitebrowser]: https://sqlitebrowser.org/dl/

@@ -9,7 +9,7 @@ Each date uses these categories where relevant: **Added**, **Changed**, **Fixed*
 ## 2026-10-08
 
 ### Changed
-- Rewrote `README.md` for this server: tech stack, programs to install and where to get them, and step-by-step setup for collaborators
+- Rewrote `README.md` for this server: tech stack, programs to install and where to get them, step-by-step setup for collaborators, and how the dev and main worlds differ, including how to grant admin on the main world
 
 ### Removed
 - Old RS Mod setup screenshots in `docs/images`, which the new README no longer uses
