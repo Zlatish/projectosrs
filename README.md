@@ -104,13 +104,27 @@ Each world keeps its own characters, but an account's **rank belongs to the acco
 
 ### Switching to the main world
 
+This takes two changes: a database update, then the config file. **Do both**, or the server will keep running the `dev` world.
+
 1. **Stop the server.**
-2. Open `.data/server.toml` and change `realm = 'dev'` to `realm = 'main'`.
-3. The `main` world only lets in accounts that already exist. To let players create an account by logging in, run this SQL on `.data/saves/game.db` (see [Editing the database](#editing-the-database)):
+2. Run this SQL on `.data/saves/game.db` (see [Editing the database](#editing-the-database)). It only needs doing once.
    ```sql
-   UPDATE realms SET require_registration = 0 WHERE name = 'main';
+   UPDATE realms
+   SET require_registration = 0, auto_assign_display_names = 1
+   WHERE name = 'main';
    ```
-4. Start the server. The first time someone logs in with a new username, their password is saved and they get **player** rank.
+   - `require_registration = 0` lets a player create an account by logging in with a new username. Without it, `main` only accepts accounts that already exist.
+   - `auto_assign_display_names = 1` gives each new account a display name based on its login name. Without it, new players have no name and get *"You must set a name before you can chat"*, because the server has no screen for choosing a name.
+3. Open `.data/server.toml` and change `realm = 'dev'` to `realm = 'main'`.
+4. Start the server. The first time someone logs in with a new username, their password is saved and they get **player** rank and a display name.
+
+If accounts were created on `main` before step 2, they'll have no display name. Stop the server and run this to give them one:
+
+```sql
+UPDATE accounts
+SET display_name = UPPER(SUBSTR(login_username, 1, 1)) || SUBSTR(login_username, 2)
+WHERE display_name IS NULL;
+```
 
 ### Granting admin on the main world
 
